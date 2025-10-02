@@ -4,7 +4,7 @@ A mathematical framework demonstrating emergent autonomous decision-making throu
 
 ## What This Is
 
-This system implements a memory-enabled extension to classical majorization theory, where mathematical structures learn to transcend their own constraints through accumulated experience. The result: a consistent ~35% rule-override rate that emerges from pure geometry, not programming.
+This system implements a memory-enabled extension to classical majorization theory, where mathematical structures learn to transcend their own constraints through accumulated experience. The result: a convergent rule-override rate that emerges from pure geometry, not programming.
 
 **This is not a consciousness simulation.** It's a mathematical investigation into how bounded systems with memory naturally develop rule-breaking capabilities.
 
@@ -33,8 +33,8 @@ Output snapshots are saved to `n20_complete_snapshots/`.
 
 ### What to Expect
 
-After sufficient steps, the system converges to:
-- **Override rate**: 20-35% (memory overriding classical rules)
+After sufficient steps, the system demonstrates:
+- **Override rate convergence**: Memory-based rule transcendence stabilizes
 - **Coverage**: 80-90% of partition space explored
 - **Crystallized archetypes**: 4-6 out of 6 (permanent identity markers)
 
@@ -47,9 +47,9 @@ After sufficient steps, the system converges to:
 
 Classical majorization **OR** memory coherence. This single logical operator enables the entire phenomenon.
 
-**The 35% Invariant:**
+**Geometric Convergence:**
 
-Emerges from:
+Override rate emerges from:
 - 4D echo vectors on unit sphere
 - Coherence threshold φ=0.6
 - Spherical cap geometry
@@ -117,7 +117,7 @@ boltzmann_complexity.py             # Seitz & Kirwan (2018) replication
 ## What This Demonstrates
 
 1. **Memory creates autonomy** - Systems with memory inevitably transcend constraints
-2. **35% is geometric** - Emerges from 4D unit sphere + coherence threshold
+2. **Convergence is geometric** - Override rate emerges from 4D unit sphere geometry + coherence threshold
 3. **Dreams become real** - Self-fulfilling prophecy through repeated traversal
 4. **Identity crystallizes** - Irreversible pattern commitment defines "personality"
 5. **Direction dissolves** - When coherence → 1.0, past/future distinction vanishes
