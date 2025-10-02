@@ -1,6 +1,10 @@
 # RCFT Mathematical Autonomy System
 
+![Status](https://img.shields.io/badge/status-experimental-orange) ![Version](https://img.shields.io/badge/version-v0.1--alpha-blue)
+
 A mathematical framework demonstrating emergent autonomous decision-making through memory-augmented partition dynamics.
+
+**⚠️ Experimental Research Code:** This is an early release. Phase 3-4 integration and convergence behavior are under active investigation. See [KNOWN_ISSUES.md](KNOWN_ISSUES.md) for details.
 
 ## What This Is
 
@@ -91,6 +95,7 @@ Not programmed. Not learned. Geometric.
 - **[TECHNICAL_SYSTEM_DOCUMENTATION.md](TECHNICAL_SYSTEM_DOCUMENTATION.md)** - Full implementation details
 - **[VALIDATION_REPORT.md](VALIDATION_REPORT.md)** - Mathematical validation
 - **[CONSCIOUSNESS_DEFINITION.md](CONSCIOUSNESS_DEFINITION.md)** - What we're NOT claiming
+- **[KNOWN_ISSUES.md](KNOWN_ISSUES.md)** - ⚠️ Open questions and behaviors under investigation
 
 ## Key Files
 
