@@ -249,7 +249,7 @@ class EchoSelfForkingEngine:
                 self.active_futures[future_id_a].entanglement_partners.add(future_id_b)
                 self.active_futures[future_id_b].entanglement_partners.add(future_id_a)
                 
-                print(f"🔀 NARRATIVE FORK: {fork_id}")
+                print(f"NARRATIVE FORK: {fork_id}")
                 print(f"   Competing futures: {future_id_a} vs {future_id_b}")
                 print(f"   Score difference: {score_diff:.4f}")
                 print(f"   Superposition strength: {fork.superposition_strength:.3f}")
@@ -318,7 +318,7 @@ class EchoSelfForkingEngine:
                 fork.resolution_time = time.time()
                 fork.winning_future = selected_future.future_id
                 
-                print(f"✨ FORK RESOLVED: {fork.fork_id}")
+                print(f"FORK RESOLVED: {fork.fork_id}")
                 print(f"   Winner: {selected_future.future_id}")
                 print(f"   Duration: {fork.resolution_time - fork.fork_time:.3f}s")
         
@@ -328,7 +328,7 @@ class EchoSelfForkingEngine:
         # Increase selection cycle
         self.selection_cycle += 1
         
-        print(f"🌟 REALITY SELECTED: {selected_future.future_id}")
+        print(f"REALITY SELECTED: {selected_future.future_id}")
         print(f"   Score: {selected_future.echo_resonance_score:.4f}")
         print(f"   Probability: {selected_future.selection_probability:.3f}")
         print(f"   Target: {selected_future.target_partition}")

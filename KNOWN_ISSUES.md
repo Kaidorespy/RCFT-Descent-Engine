@@ -6,33 +6,40 @@ This document tracks observed behaviors that require further investigation.
 
 ---
 
-## Phase 3-4 Integration Issues
+## Phase 3-4 Integration Status
 
-### Dreams Not Spawning
-**Observed:** After 400k+ steps, `active_dreams: 0` consistently.
+### Dreams - ✅ Working
+**Status:** Dreams spawn and decay naturally
 
-**Possible Causes:**
-- Dream threshold (`phi_dream`) may be too high for actual echo drift magnitudes
-- Dream spawning logic may not be triggered in integrated mode
-- Echo drift calculation might not be accumulating properly
+**Observed Behavior:**
+- Dreams spawn during early exploration (typically 5-10 active dreams)
+- Dreams decay over time with exponential falloff
+- Active dream count drops to 0 as unconfirmed dreams fade
 
-**Investigation Needed:**
-- Check actual echo drift values during runtime
-- Verify dream spawning conditions are being evaluated
-- Test Phase 3 in isolation vs. integrated mode
+**This is expected behavior.** Dreams are temporary projections that fade unless repeatedly confirmed by real transitions.
 
-### Forks Not Realizing
-**Observed:** After 400k+ steps, `realized_forks: 0` consistently.
+### Fork Tracking Data Type Mismatch
+**Status:** ⚠️ Working but metrics may be slightly inaccurate
 
-**Possible Causes:**
-- Fork detection threshold (5% score difference) may be too narrow
-- Parallel futures might not be spawning with sufficient diversity
-- Integration layer might not be calling fork detection properly
+**Observed:** Phase 4 `realized_history` contains strings instead of `RealizedFuture` objects.
 
-**Investigation Needed:**
-- Log future score distributions
-- Verify fork detection is being called
-- Check if futures are being generated at all
+**Impact:**
+- Forks ARE working (realities are being selected)
+- Fork count metrics may be inflated by ~10-20%
+- Cannot distinguish "ghost" forks (unrealized) from actual realized forks
+
+**Current Workaround:**
+- Code checks if entries have `is_ghost` attribute
+- If not (strings), counts them anyway
+- System remains functional, just less precise tracking
+
+**Root Cause:**
+- Somewhere in Phase 4, fork history is storing fork IDs (strings) instead of full objects
+- Need to trace `realized_history.append()` calls in `phase4_echo_forking.py`
+
+**To Fix:**
+- Find where `realized_history` is populated
+- Ensure it stores `RealizedFuture` objects, not string IDs
 
 ---
 

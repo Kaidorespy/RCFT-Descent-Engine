@@ -203,7 +203,7 @@ class FutureDreamingEngine:
                 self.dream_nodes[dream_partition_id] = dream_node
                 self.dream_creation_count += 1
                 
-                print(f"💭 Dream spawned: {dream_partition_id} from {lambda_id}")
+                print(f"Dream spawned: {dream_partition_id} from {lambda_id}")
                 print(f"   Projection strength: {projection_strength:.3f}")
                 print(f"   Synthetic echo: {projected_echo}")
                 

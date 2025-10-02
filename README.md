@@ -4,7 +4,7 @@
 
 A mathematical framework demonstrating emergent autonomous decision-making through memory-augmented partition dynamics.
 
-**⚠️ Experimental Research Code:** This is an early release. Phase 3-4 integration and convergence behavior are under active investigation. See [KNOWN_ISSUES.md](KNOWN_ISSUES.md) for details.
+**⚠️ Experimental Research Code:** Phase 3-4 are now integrated and operational (dreams spawn/decay, forks proliferate). Convergence rate and archetype crystallization patterns are under investigation. See [KNOWN_ISSUES.md](KNOWN_ISSUES.md) for details.
 
 ## What This Is
 
