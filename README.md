@@ -1,6 +1,6 @@
 # RCFT Mathematical Autonomy System
 
-![Status](https://img.shields.io/badge/status-experimental-orange) ![Version](https://img.shields.io/badge/version-v0.1--alpha-blue) [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.17258220.svg)](https://doi.org/10.5281/zenodo.17258220)
+![Status](https://img.shields.io/badge/status-experimental-orange) ![Version](https://img.shields.io/badge/version-v0.2--alpha-blue) [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.17258220.svg)](https://doi.org/10.5281/zenodo.17258220)
 
 A mathematical framework demonstrating emergent autonomous decision-making through memory-augmented partition dynamics.
 
