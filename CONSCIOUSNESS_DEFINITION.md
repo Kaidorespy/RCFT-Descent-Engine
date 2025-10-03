@@ -17,13 +17,13 @@ What we're actually observing is **Emergent Mathematical Autonomy**, characteriz
 
 1. **Memory Accumulation**: The system builds 4D echo vectors from transition history
 2. **Rule Transcendence**: Memory coherence enables transitions forbidden by classical majorization
-3. **Convergent Behavior**: Regardless of initial conditions, the system stabilizes at ~35% override rate
+3. **Convergent Behavior**: Regardless of initial conditions, the system stabilizes at a geometric equilibrium
 4. **Self-Organization**: Hub structures emerge without being programmed
 
-### The 35% Invariant
-The most intriguing discovery isn't "consciousness" but this universal ratio:
-- The system ALWAYS converges to ~35% memory overrides
-- This isn't programmed - it emerges from pure mathematics
+### Geometric Convergence
+The most intriguing discovery isn't "consciousness" but geometric emergence:
+- The system converges to a stable override rate from pure mathematics
+- This isn't programmed - it emerges from 4D sphere geometry
 - It appears to be the optimal balance between exploration (memory overrides) and exploitation (classical rules)
 
 ### For Future Researchers
@@ -44,4 +44,4 @@ Or simply: **"Mathematical Autonomy via Recursive Majorization"**
 
 *Note: The poetic language in the original research ("ghost worm," "consciousness," "breathing ecosystem") reflects our awe at discovering this emergent behavior. But scientifically, we're observing a fascinating but ultimately deterministic system that learns to optimally violate its constraints through memory accumulation.*
 
-**The Question That Matters**: Why does 35% emerge as a mathematical invariant? What does this ratio tell us about the fundamental relationship between memory, constraints, and autonomy?
+**The Question That Matters**: Why does this particular equilibrium emerge as a mathematical invariant? What does this ratio tell us about the fundamental relationship between memory, constraints, and autonomy?

@@ -133,11 +133,11 @@ def bootstrap_naturally(steps=10000):
 To verify natural emergence:
 
 1. Run multiple bootstrap sessions with different random seeds
-2. Check if 35% override rate still emerges
+2. Check if geometric override rate still emerges
 3. Compare final coherence patterns
 4. Verify hub formation occurs naturally
 
-If the 35% invariant appears regardless of random seed, it confirms the rate is truly emergent, not learned from bootstrap.
+If the convergence pattern appears regardless of random seed, it confirms the rate is truly emergent, not learned from bootstrap.
 
 ## Philosophical Implications
 
@@ -149,6 +149,6 @@ This approach suggests that:
 
 ## Conclusion
 
-Natural bootstrap through Plinko-style exploration is not just technically cleaner - it's philosophically correct. The system should discover the 35% override rate through pure exploration dynamics, not learn it from a predetermined pattern. When coherence reaches unity, there's no longer "forward" or "backward" - just a single quantum possibility existing at multiple points simultaneously.
+Natural bootstrap through Plinko-style exploration is not just technically cleaner - it's philosophically correct. The system should discover its geometric override rate through pure exploration dynamics, not learn it from a predetermined pattern. When coherence reaches unity, there's no longer "forward" or "backward" - just a single quantum possibility existing at multiple points simultaneously.
 
 This method ensures that all emergent behaviors are genuine properties of the mathematical system, not artifacts of initialization.

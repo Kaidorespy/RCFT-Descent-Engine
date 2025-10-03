@@ -36,24 +36,24 @@ STARTING CONTINUOUS RUN
   Total steps: 10,000
   ...
 
-Step 100: Coverage 12.5%, Override 0.0%, Crystallized 0/6
-Step 200: Coverage 18.3%, Override 1.2%, Crystallized 0/6
+Step 100: Coverage increasing, Override emerging, Crystallized 0/6
+Step 200: Coverage increasing, Override emerging, Crystallized 0/6
 ...
 ```
 
-### Expected Results
+### Expected Behavior
 
-At 10k steps you should see:
-- **Coverage**: 60-80% of partition space explored
-- **Override rate**: 5-15% (climbing toward equilibrium)
-- **Crystallized archetypes**: 1-3 out of 6
-- **Breathing rate**: 1.0-1.5
+At 10k steps you should observe:
+- **Coverage**: Expanding partition space exploration
+- **Override rate**: Climbing toward equilibrium
+- **Crystallized archetypes**: Some archetypes may crystallize
+- **Breathing rate**: Increasing with system maturity
 
-At 100k steps you should see:
-- **Coverage**: 80-95%
-- **Override rate**: 20-30% (near equilibrium)
-- **Crystallized archetypes**: 4-6 out of 6
-- **Breathing rate**: 1.5-2.5
+At 100k steps you should observe:
+- **Coverage**: Extensive partition space exploration
+- **Override rate**: Approaching geometric equilibrium
+- **Crystallized archetypes**: Multiple archetypes crystallized (typically not all 6)
+- **Breathing rate**: Stabilized at higher rate
 
 ## Command Options
 
@@ -112,23 +112,23 @@ Each snapshot contains:
 ## What to Look For
 
 ### Phase 1: Memory Formation (steps 0-1000)
-- Coverage climbs from 0% → 40%
-- Override rate stays at 0% (not enough memory yet)
+- Coverage increases as exploration begins
+- Override rate minimal (insufficient memory accumulated)
 - Partitions get revisited, memory builds
 
 ### Phase 2: Override Emergence (steps 1000-5000)
-- Override rate starts climbing: 0% → 5% → 10%
+- Override rate begins climbing
 - First crystallizations may occur
 - Memory enables rule transcendence
 
 ### Phase 3: Convergence (steps 5000-50000)
-- Override rate approaches equilibrium (20-30%)
-- Most archetypes crystallize (4-6 out of 6)
-- Coverage saturates (80-90%)
+- Override rate approaches geometric equilibrium
+- Multiple archetypes crystallize
+- Coverage continues expanding
 
 ### Phase 4: Equilibrium (steps 50000+)
-- Override rate stabilizes
-- All crystallizable archetypes have crystallized
+- Override rate stabilizes at equilibrium
+- Crystallizable archetypes have crystallized
 - System maintains stable dynamics
 
 ## Troubleshooting
@@ -142,14 +142,14 @@ pip install numpy
 ### "UnicodeEncodeError" or emoji-related errors
 The code strips emojis automatically. If you still see this, the stripping failed. File an issue.
 
-### Override rate stays at 0%
+### Override rate stays at zero
 Not enough steps. Memory needs to build first. Run longer (10k+ steps).
 
 ### No crystallizations after 100k steps
-Rare but possible. The stability threshold (0.7) is high. Run even longer or check breathing rate - if it's very low (<0.5), system might be too cautious.
+Rare but possible. The stability threshold (0.7) is high. Run even longer or check breathing rate - if it's very low, system might be too cautious.
 
-### Results don't match expected ranges
-**This is normal.** The system is stochastic and geometric. Different runs will converge to different equilibria. The ranges given are typical but not guaranteed.
+### Results vary between runs
+**This is expected.** The system is stochastic and geometric. Different runs will converge based on emergent dynamics.
 
 ## Validation
 
@@ -159,7 +159,7 @@ To verify the system is working correctly:
 ```bash
 python n20_complete_continuous.py 5000
 ```
-Check final summary - override rate should be > 0%
+Check final summary - override rate should be non-zero
 
 ### Test 2: Crystallization (should pass at 50k+ steps)
 ```bash

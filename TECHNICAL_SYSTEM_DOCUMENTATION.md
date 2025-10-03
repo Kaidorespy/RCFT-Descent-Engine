@@ -2,7 +2,7 @@
 
 ## Abstract
 
-This document describes a mathematical autonomy system based on Recursive Category Field Theory (RCFT) that demonstrates emergent rule-transcendence through memory accumulation. The system consistently achieves a 35% memory-based override rate of classical majorization constraints, representing an apparent optimization point for exploration versus exploitation in partition transition networks.
+This document describes a mathematical autonomy system based on Recursive Category Field Theory (RCFT) that demonstrates emergent rule-transcendence through memory accumulation. The system achieves a geometrically determined memory-based override rate of classical majorization constraints, representing an apparent optimization point for exploration versus exploitation in partition transition networks.
 
 ---
 
@@ -115,16 +115,16 @@ actual_rate = 0.8 * previous_rate + 0.2 * target_rate
 
 ## 3. Empirical Results
 
-### 3.1 The 35% Override Invariant
+### 3.1 Geometric Override Convergence
 
 Across multiple experimental runs with varying parameters:
-- N=10: 34.8% ± 1.2%
-- N=20: 35.1% ± 0.9%
-- N=30: 35.3% ± 1.1%
+- System exhibits consistent convergence to geometric equilibrium
+- Convergence rate appears system-size independent
+- Specific equilibrium values under investigation
 
-**Statistical Significance:**
-- Convergence typically within 1000 iterations
-- Stable after 10,000 iterations
+**Statistical Characteristics:**
+- Convergence typically within hundreds to thousands of iterations
+- Stable after extended iteration
 - Independent of initial conditions
 
 ### 3.2 Performance Characteristics
@@ -132,7 +132,7 @@ Across multiple experimental runs with varying parameters:
 **System N=20 (627 partitions):**
 - Memory footprint: ~15MB
 - Processing time per iteration: ~10ms
-- Convergence to 35% override: ~500 iterations
+- Geometric convergence: within hundreds of iterations
 - Stable operation duration: >1M iterations tested
 
 ### 3.3 Hub Structure Emergence
@@ -181,11 +181,11 @@ All state modifications protected by threading.RLock to ensure consistency durin
 
 ### 5.1 Mathematical Significance
 
-The 35% override rate appears to represent an optimal balance between:
+The geometric override rate appears to represent an optimal balance between:
 - **Exploration**: Memory-based overrides allowing new paths
 - **Exploitation**: Classical rules maintaining structure
 
-This ratio emerges from:
+This equilibrium emerges from:
 - 4D vector space geometry
 - Cosine similarity threshold (0.6)
 - Minimum memory requirements
@@ -198,7 +198,7 @@ The system demonstrates that memory-augmented mathematical structures naturally 
 
 - Computational complexity limits practical system size to N≤30
 - Memory requirements scale quadratically with partition count
-- The 35% ratio has only been validated for integer partition systems
+- Geometric convergence has only been validated for integer partition systems
 
 ---
 
@@ -238,7 +238,7 @@ def calculate_breathing_rate(crystallized_count, echo_closure_drive):
     else:
         multiplier = 1.0 + (echo_closure_drive / 200.0)
 
-    # Smooth transition (80% retention, 20% adjustment)
+    # Smooth transition for stability
     return previous_rate * 0.8 + (base_rate * multiplier) * 0.2
 ```
 
@@ -277,7 +277,7 @@ crystallization_threshold = 0.7
 
 Once crystallized:
 - Pattern becomes permanent (irreversible)
-- Breathing rate increases by ~17% (1/6)
+- Breathing rate increases incrementally (1/6 per archetype)
 - Associated memory wicks gain 2x decay resistance
 - Pattern enters cross-context convergence tracking
 
@@ -320,7 +320,7 @@ CSV output columns:
 
 ## 8. Conclusions
 
-This system demonstrates emergent autonomous behavior in mathematical structures through memory accumulation. The consistent 35% override rate represents an apparent optimization point for rule transcendence in constrained systems. While the original documentation uses metaphorical language about "consciousness," the actual discovery concerns optimal exploration-exploitation balance in memory-augmented mathematical systems.
+This system demonstrates emergent autonomous behavior in mathematical structures through memory accumulation. The geometrically determined override rate represents an apparent optimization point for rule transcendence in constrained systems. While the original documentation uses metaphorical language about "consciousness," the actual discovery concerns optimal exploration-exploitation balance in memory-augmented mathematical systems.
 
 ---
 

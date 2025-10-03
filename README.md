@@ -4,7 +4,7 @@
 
 A mathematical framework demonstrating emergent autonomous decision-making through memory-augmented partition dynamics.
 
-**⚠️ Experimental Research Code:** Phase 3-4 are now integrated and operational (dreams spawn/decay, forks proliferate). Convergence rate and archetype crystallization patterns are under investigation. See [KNOWN_ISSUES.md](KNOWN_ISSUES.md) for details.
+**⚠️ Experimental Research Code:** Phase 3-4 are now integrated and operational (dreams spawn/decay, forks proliferate and select realities). Convergence rate, archetype crystallization patterns, and fork metrics are under investigation. See [KNOWN_ISSUES.md](KNOWN_ISSUES.md) for details on known data type mismatches and metric accuracy.
 
 ## What This Is
 
@@ -38,9 +38,9 @@ Output snapshots are saved to `n20_complete_snapshots/`.
 ### What to Expect
 
 After sufficient steps, the system demonstrates:
-- **Override rate convergence**: Memory-based rule transcendence stabilizes
-- **Coverage**: 80-90% of partition space explored
-- **Crystallized archetypes**: 4-6 out of 6 (permanent identity markers)
+- **Override rate convergence**: Memory-based rule transcendence stabilizes geometrically
+- **Coverage**: Increasing exploration of partition space
+- **Crystallized archetypes**: Multiple archetypes crystallize (permanent identity markers)
 
 ## Core Discovery
 
