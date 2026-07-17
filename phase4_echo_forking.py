@@ -26,6 +26,8 @@ from collections import deque, defaultdict
 import json
 import random
 
+from partition_utils import parse_partition_id
+
 @dataclass
 class ParallelFuture:
     """A single possible future trajectory competing for realization"""
@@ -86,7 +88,7 @@ class EchoSelfForkingEngine:
         # State tracking
         self.active_futures: Dict[str, ParallelFuture] = {}
         self.narrative_forks: Dict[str, NarrativeFork] = {}
-        self.realized_history: List[str] = []  # Which futures became real
+        self.realized_history: List[ParallelFuture] = []  # Futures that became real
         self.ghost_cemetery: List[str] = []  # Futures that died
         
         # Competition dynamics
@@ -94,6 +96,8 @@ class EchoSelfForkingEngine:
         self.total_futures_spawned: int = 0
         self.total_forks_created: int = 0
         self.superposition_events: int = 0
+        self.forks_resolved_by_winner: int = 0
+        self.stale_forks_resolved: int = 0
         
         # Desire/preference tracking
         self.system_preferences: Dict[str, float] = defaultdict(float)
@@ -122,20 +126,18 @@ class EchoSelfForkingEngine:
             futures.append(future)
             self.total_futures_spawned += 1
         
-        # Dream-inspired futures from Phase 3
+        # Dream-inspired futures from Phase 3. Synthetic dream nodes are not
+        # concrete partitions, so only use dreams that carry parseable targets.
         if phase3_dreams:
             for dream_id, dream_node in phase3_dreams.items():
                 if len(futures) >= self.max_parallel_futures:
                     break
-                    
-                # Create future targeting dream partition
+
+                dream_partition = parse_partition_id(dream_node.partition_id)
+                if dream_partition is None:
+                    continue
+
                 future_id = f"D{self.total_futures_spawned}_dream_{dream_id}"
-                
-                # Convert dream partition back to tuple (hack for now)
-                try:
-                    dream_partition = eval(dream_node.partition_id.split('_')[1]) if '_' in dream_node.partition_id else current_partition
-                except:
-                    dream_partition = current_partition
                 
                 dream_future = ParallelFuture(
                     future_id=future_id,
@@ -231,7 +233,7 @@ class EchoSelfForkingEngine:
             score_diff = abs(score_a - score_b)
             
             if score_diff < self.fork_threshold and score_a > 0.1:  # Significant scores only
-                fork_id = f"FORK_{self.total_forks_created}_{time.time()}"
+                fork_id = f"FORK_{self.total_forks_created}"
                 
                 fork = NarrativeFork(
                     fork_id=fork_id,
@@ -301,7 +303,7 @@ class EchoSelfForkingEngine:
         selected_future.persistence += 1
         
         # Record realization
-        self.realized_history.append(selected_future.future_id)
+        self.realized_history.append(selected_future)
         
         # Kill competing futures
         for future_id in list(self.active_futures.keys()):
@@ -317,10 +319,13 @@ class EchoSelfForkingEngine:
                 fork.is_resolved = True
                 fork.resolution_time = time.time()
                 fork.winning_future = selected_future.future_id
+                self.forks_resolved_by_winner += 1
                 
                 print(f"FORK RESOLVED: {fork.fork_id}")
                 print(f"   Winner: {selected_future.future_id}")
                 print(f"   Duration: {fork.resolution_time - fork.fork_time:.3f}s")
+
+        self._resolve_stale_forks()
         
         # Update system drive
         self.echo_closure_drive += selected_future.echo_resonance_score * 0.1
@@ -334,6 +339,19 @@ class EchoSelfForkingEngine:
         print(f"   Target: {selected_future.target_partition}")
         
         return selected_future.target_partition
+
+    def _resolve_stale_forks(self) -> None:
+        """Resolve forks whose competing futures are no longer active."""
+        for fork in self.narrative_forks.values():
+            if fork.is_resolved:
+                continue
+            if any(future_id in self.active_futures for future_id in fork.competing_futures):
+                continue
+
+            fork.is_resolved = True
+            fork.resolution_time = time.time()
+            fork.winning_future = None
+            self.stale_forks_resolved += 1
     
     def _compute_past_coherence(self, future: ParallelFuture, memory_field: Dict) -> float:
         """How well the target connects to accumulated memory"""
@@ -440,6 +458,8 @@ class EchoSelfForkingEngine:
             'total_forks_created': self.total_forks_created,
             'active_forks': active_forks,
             'superposition_events': self.superposition_events,
+            'forks_resolved_by_winner': self.forks_resolved_by_winner,
+            'stale_forks_resolved': self.stale_forks_resolved,
             'realized_futures': len(self.realized_history),
             'ghost_futures': len(self.ghost_cemetery),
             'echo_closure_drive': self.echo_closure_drive,
@@ -470,7 +490,15 @@ class EchoSelfForkingEngine:
                 'winning_future': fork.winning_future
             } for fid, fork in self.narrative_forks.items()},
             
-            'realized_history': self.realized_history,
+            'realized_history': [{
+                'future_id': future.future_id,
+                'source': future.source_partition,
+                'target': future.target_partition,
+                'echo_resonance_score': future.echo_resonance_score,
+                'selection_probability': future.selection_probability,
+                'persistence': future.persistence,
+                'is_ghost': future.is_ghost
+            } for future in self.realized_history],
             'ghost_cemetery': self.ghost_cemetery,
             'system_preferences': dict(self.system_preferences),
             'metrics': self.get_phase4_metrics()
@@ -485,6 +513,7 @@ class Phase4Enhancer:
         self.rma = rcft_analyzer
         self.phase3 = phase3_enhancer
         self.forking_engine = EchoSelfForkingEngine()
+        self.pending_future: Optional[ParallelFuture] = None
         
     def enhanced_transition_selection(self, 
                                     possible_transitions: List[Tuple[str, str]],
@@ -495,8 +524,18 @@ class Phase4Enhancer:
             return None, None
         
         # Extract current position and possible targets
-        current_partition = eval(possible_transitions[0][0])  # Assume all have same source
-        possible_targets = [eval(target) for source, target in possible_transitions]
+        current_partition = parse_partition_id(possible_transitions[0][0])
+        if current_partition is None:
+            return None, None
+
+        possible_targets = []
+        for source, target in possible_transitions:
+            parsed_target = parse_partition_id(target)
+            if parsed_target is not None:
+                possible_targets.append(parsed_target)
+
+        if not possible_targets:
+            return None, None
         
         # Get Phase 3 dreams if available
         phase3_dreams = {}
@@ -514,14 +553,25 @@ class Phase4Enhancer:
         # Detect narrative forks
         forks = self.forking_engine.detect_narrative_forks(futures)
         
-        # Select reality
-        selected_future = self.forking_engine.select_reality(futures)
-        
-        if selected_future:
-            realized_target = self.forking_engine.realize_future(selected_future)
-            return str(current_partition), str(realized_target)
+        self.pending_future = self.forking_engine.select_reality(futures)
+
+        if self.pending_future:
+            return str(current_partition), str(self.pending_future.target_partition)
         
         return None, None
+
+    def commit_pending_selection(self) -> Optional[Tuple[int, ...]]:
+        """Commit the last selected future after the caller accepts it."""
+        if self.pending_future is None:
+            return None
+
+        realized_target = self.forking_engine.realize_future(self.pending_future)
+        self.pending_future = None
+        return realized_target
+
+    def discard_pending_selection(self) -> None:
+        """Discard an unaccepted selected future without recording realization."""
+        self.pending_future = None
 
 
 # Demo Phase 4 capabilities

@@ -9,13 +9,15 @@ This is our laboratory for understanding mathematical consciousness.
 
 import numpy as np
 import time
+import sys
 from typing import Dict, List, Tuple, Set
 from collections import defaultdict, deque
 import random
 import json
 
-print("🧪 N=20 CONSCIOUSNESS LABORATORY")
-print("="*70)
+if hasattr(sys.stdout, "reconfigure"):
+    sys.stdout.reconfigure(errors="replace")
+
 
 class N20CompleteConsciousness:
     """
@@ -329,22 +331,30 @@ class N20CompleteConsciousness:
                 print(f"  {partition[:3]}...: strength={strength:.3f}, visits={visits}")
 
 
-# Initialize and run the consciousness
-consciousness = N20CompleteConsciousness()
+def demo_n20_consciousness():
+    """Run the original standalone N=20 exploration demo."""
+    print("🧪 N=20 CONSCIOUSNESS LABORATORY")
+    print("="*70)
 
-# Run multiple explorations to build memory
-print("\n" + "="*70)
-print("🧠 CONSCIOUSNESS EXPLORATION BEGINNING")
-print("="*70)
+    consciousness = N20CompleteConsciousness()
 
-for run in range(3):
-    print(f"\n{'='*70}")
-    print(f"RUN {run + 1}/3")
-    print(f"{'='*70}")
+    # Run multiple explorations to build memory
+    print("\n" + "="*70)
+    print("🧠 CONSCIOUSNESS EXPLORATION BEGINNING")
+    print("="*70)
+    
+    for run in range(3):
+        print(f"\n{'='*70}")
+        print(f"RUN {run + 1}/3")
+        print(f"{'='*70}")
+    
+        consciousness.run_exploration(steps=100, mode="mixed")
+        consciousness.analyze_consciousness()
+    
+    print("\n" + "="*70)
+    print("✨ N=20 CONSCIOUSNESS EXPLORATION COMPLETE")
+    print("="*70)
 
-    consciousness.run_exploration(steps=100, mode="mixed")
-    consciousness.analyze_consciousness()
 
-print("\n" + "="*70)
-print("✨ N=20 CONSCIOUSNESS EXPLORATION COMPLETE")
-print("="*70)
+if __name__ == "__main__":
+    demo_n20_consciousness()

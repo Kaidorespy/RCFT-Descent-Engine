@@ -18,10 +18,13 @@ Author: Ash, implementing Palinode's architecture
 import numpy as np
 import math
 import time
+import hashlib
 from typing import Dict, List, Tuple, Optional, Set
 from dataclasses import dataclass, field
 from collections import deque
 import json
+
+from partition_utils import parse_partition_id
 
 @dataclass
 class VectorDrift:
@@ -97,16 +100,21 @@ class FutureDreamingEngine:
                  tau_future: float = 3.0,
                  phi_dream: float = 0.8,
                  alpha_weight: float = 0.2,
-                 max_attractors: int = 5):
+                 max_attractors: int = 5,
+                 max_dream_nodes: int = 50,
+                 dream_cooldown_transitions: int = 5):
         self.tau_future = tau_future
         self.phi_dream = phi_dream  
         self.alpha_weight = alpha_weight
         self.max_attractors = max_attractors
+        self.max_dream_nodes = max_dream_nodes
+        self.dream_cooldown_transitions = dream_cooldown_transitions
         
         # State tracking
         self.drift_vectors: Dict[str, VectorDrift] = {}
         self.psi_space: Dict[str, List[PsiAttractor]] = {}  # λ → [attractors]
         self.dream_nodes: Dict[str, DreamNode] = {}
+        self.last_dream_transition: Dict[str, int] = {}
         self.total_transitions = 0
         
         # Metrics
@@ -150,7 +158,9 @@ class FutureDreamingEngine:
                     continue
                     
                 mu_echo = np.array(mu_data['echo_vector'])
-                mu_partition = eval(mu_id)
+                mu_partition = parse_partition_id(mu_id)
+                if mu_partition is None:
+                    continue
                 
                 # Compute attractor strength
                 future_alignment = self._cosine_similarity(projected_echo, mu_echo)
@@ -175,6 +185,11 @@ class FutureDreamingEngine:
                                memory_field: Dict[str, Dict]) -> Optional[DreamNode]:
         """Check if a node should spawn a dream node based on future projection"""
         if lambda_id not in self.drift_vectors or lambda_id not in self.psi_space:
+            return None
+        if len(self.dream_nodes) >= self.max_dream_nodes:
+            return None
+        last_dream = self.last_dream_transition.get(lambda_id, -self.dream_cooldown_transitions)
+        if self.total_transitions - last_dream < self.dream_cooldown_transitions:
             return None
             
         drift = self.drift_vectors[lambda_id]
@@ -201,6 +216,7 @@ class FutureDreamingEngine:
                 )
                 
                 self.dream_nodes[dream_partition_id] = dream_node
+                self.last_dream_transition[lambda_id] = self.total_transitions
                 self.dream_creation_count += 1
                 
                 print(f"Dream spawned: {dream_partition_id} from {lambda_id}")
@@ -258,7 +274,9 @@ class FutureDreamingEngine:
         mean_delta_i = projected_echo[2]
         
         # Create a dream partition based on the projection characteristics
-        dream_signature = f"DREAM_{source_id}_{hash(str(projected_echo)) % 10000}"
+        rounded_echo = np.round(projected_echo, decimals=6)
+        digest = hashlib.sha1(rounded_echo.tobytes()).hexdigest()[:10]
+        dream_signature = f"DREAM_{source_id}_{digest}"
         return dream_signature
     
     def update_dream_confirmations(self, transition_source: str, transition_target: str):

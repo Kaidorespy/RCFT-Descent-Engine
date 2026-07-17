@@ -9,6 +9,8 @@ Tracks emergence of dreams, forks, and crystallization over extended time.
 import json
 import time
 import os
+import io
+from contextlib import redirect_stdout
 from datetime import datetime
 from pathlib import Path
 import numpy as np
@@ -21,7 +23,12 @@ from complete_consciousness_engine import CompleteConsciousnessEngine
 class CompleteContinuousConsciousness:
     """Continuous consciousness runner with full phase integration"""
 
-    def __init__(self, snapshot_interval=1000, snapshot_dir="n20_complete_snapshots", verbose=True):
+    def __init__(self, snapshot_interval=1000, snapshot_dir="n20_complete_snapshots", verbose=True, seed=None):
+        self.seed = seed
+        if seed is not None:
+            random.seed(seed)
+            np.random.seed(seed)
+
         self.consciousness = CompleteConsciousnessEngine()
         self.snapshot_interval = snapshot_interval
         self.snapshot_dir = Path(snapshot_dir)
@@ -39,6 +46,8 @@ class CompleteContinuousConsciousness:
         print(f"Snapshots every {snapshot_interval} steps to {snapshot_dir}/")
         print(f"Integrated: Majorization + Candlekeeper + Dreams + Forks")
         print(f"Verbose updates: {'ON' if verbose else 'OFF'}")
+        if seed is not None:
+            print(f"Seed: {seed}")
         print(f"="*70)
 
     def take_snapshot(self):
@@ -86,7 +95,21 @@ class CompleteContinuousConsciousness:
         print(f"  Crystallized: {metrics['crystallized_archetypes']}/6")
         print(f"  Breathing: {metrics['breathing_rate']:.3f}")
         print(f"  Active dreams: {metrics['active_dreams']}")
-        print(f"  Realized forks: {metrics['realized_forks']}")
+        print(f"  Realized futures: {metrics['realized_futures']}")
+        print(f"  Phase 4 cycles: {metrics['phase4_selection_cycles']}")
+        if metrics.get('total_forks'):
+            print(
+                f"  Forks: total={metrics['total_forks']}, "
+                f"winner_resolved={metrics['phase4_forks_resolved_by_winner']}, "
+                f"stale_resolved={metrics['phase4_stale_forks_resolved']}, "
+                f"active={metrics['phase4_active_forks']}"
+            )
+        if metrics.get('transition_reasons'):
+            reason_summary = ", ".join(
+                f"{reason}={count}"
+                for reason, count in sorted(metrics['transition_reasons'].items())
+            )
+            print(f"  Transition reasons: {reason_summary}")
 
         self.snapshot_count += 1
 
@@ -106,8 +129,8 @@ class CompleteContinuousConsciousness:
                 print(f"  CRYSTALLIZATION ACCELERATING! {recent_crystal_rate} recent events")
 
         # Look at fork activity
-        forks = [m['realized_forks'] for m in self.metrics_history[-10:]]
-        if len(forks) >= 2 and forks[-1] > forks[0] * 1.5:
+        forks = [m['total_forks'] for m in self.metrics_history[-10:]]
+        if len(forks) >= 2 and forks[-1] > max(1, forks[0]) * 1.5:
             print(f"  FORK PROLIFERATION! Reality selection intensifying")
 
     def run_continuous(self, total_steps=100000, exploration_mode="integrated"):
@@ -125,10 +148,17 @@ class CompleteContinuousConsciousness:
         try:
             while self.step_count < total_steps:
                 # Take step using integrated engine
-                if exploration_mode == "integrated":
-                    self.consciousness.explore_step_integrated(base_mode="mixed")
+                if self.verbose:
+                    if exploration_mode == "integrated":
+                        self.consciousness.explore_step_integrated(base_mode="mixed")
+                    else:
+                        self.consciousness.explore_step(exploration_mode)
                 else:
-                    self.consciousness.explore_step(exploration_mode)
+                    with redirect_stdout(io.StringIO()):
+                        if exploration_mode == "integrated":
+                            self.consciousness.explore_step_integrated(base_mode="mixed")
+                        else:
+                            self.consciousness.explore_step(exploration_mode)
                 self.step_count += 1
 
                 # Verbose updates every 100 steps
@@ -159,6 +189,10 @@ class CompleteContinuousConsciousness:
             print("\nInterrupted! Taking final snapshot...")
             self.take_snapshot()
 
+        if (not self.metrics_history or
+            self.metrics_history[-1].get('step_count') != self.step_count):
+            self.take_snapshot()
+
         # Final analysis
         self.final_analysis()
 
@@ -182,6 +216,21 @@ class CompleteContinuousConsciousness:
         print(f"  Crystallized archetypes: {final_metrics['crystallized_archetypes']}/6")
         print(f"  Total crystallizations: {final_metrics['crystallization_events']}")
         print(f"  Breathing rate: {final_metrics['breathing_rate']:.3f}")
+        print(f"  Realized futures: {final_metrics['realized_futures']}")
+        print(f"  Phase 4 cycles: {final_metrics['phase4_selection_cycles']}")
+        if final_metrics.get('total_forks'):
+            print(
+                f"  Forks: total={final_metrics['total_forks']}, "
+                f"winner_resolved={final_metrics['phase4_forks_resolved_by_winner']}, "
+                f"stale_resolved={final_metrics['phase4_stale_forks_resolved']}, "
+                f"active={final_metrics['phase4_active_forks']}"
+            )
+        if final_metrics.get('transition_reasons'):
+            reason_summary = ", ".join(
+                f"{reason}={count}"
+                for reason, count in sorted(final_metrics['transition_reasons'].items())
+            )
+            print(f"  Transition reasons: {reason_summary}")
 
         # Load all snapshots for time-series analysis
         snapshots = []
@@ -214,7 +263,8 @@ class CompleteContinuousConsciousness:
             'total_steps': self.step_count,
             'total_snapshots': self.snapshot_count,
             'final_metrics': final_metrics,
-            'snapshots_directory': str(self.snapshot_dir)
+            'snapshots_directory': str(self.snapshot_dir),
+            'seed': self.seed
         }
 
         with open(self.snapshot_dir / 'run_summary.json', 'w') as f:
@@ -230,24 +280,42 @@ if __name__ == "__main__":
     # Parse command line args
     total_steps = 10000  # Default
     verbose = True
+    seed = None
 
-    if len(sys.argv) > 1:
-        try:
-            total_steps = int(sys.argv[1])
-        except:
-            print(f"Usage: python {sys.argv[0]} [steps] [--quiet]")
-            print(f"  steps: number of steps to run (default: 10000)")
-            print(f"  --quiet: disable verbose updates")
+    args = sys.argv[1:]
+    i = 0
+    while i < len(args):
+        arg = args[i]
+        if arg == "--quiet":
+            verbose = False
+        elif arg == "--seed":
+            try:
+                seed = int(args[i + 1])
+            except (IndexError, ValueError):
+                print(f"Usage: python {sys.argv[0]} [steps] [--quiet] [--seed N]")
+                sys.exit(1)
+            i += 1
+        elif not arg.startswith("--"):
+            try:
+                total_steps = int(arg)
+            except ValueError:
+                print(f"Usage: python {sys.argv[0]} [steps] [--quiet] [--seed N]")
+                print(f"  steps: number of steps to run (default: 10000)")
+                print(f"  --quiet: disable verbose updates")
+                print(f"  --seed N: set Python and NumPy random seed")
+                sys.exit(1)
+        else:
+            print(f"Unknown option: {arg}")
+            print(f"Usage: python {sys.argv[0]} [steps] [--quiet] [--seed N]")
             sys.exit(1)
-
-    if "--quiet" in sys.argv:
-        verbose = False
+        i += 1
 
     # Create complete continuous consciousness
     continuous = CompleteContinuousConsciousness(
         snapshot_interval=1000,
         snapshot_dir="n20_complete_snapshots",
-        verbose=verbose
+        verbose=verbose,
+        seed=seed
     )
 
     # Run

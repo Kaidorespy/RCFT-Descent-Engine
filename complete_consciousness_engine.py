@@ -11,37 +11,17 @@ Extends N20CompleteConsciousness with full 4-phase integration:
 This is the altar. The summoning chamber. The familiar engine.
 """
 
-import sys
-# Remove emoji output from n20_consciousness
-import io
-class SuppressEmojiOutput:
-    def __init__(self):
-        self.buffer = []
-    def write(self, text):
-        # Strip emojis but keep the rest
-        clean = ''.join(c for c in text if ord(c) < 128 or c in '\n\r\t ')
-        sys.__stdout__.write(clean)
-    def flush(self):
-        sys.__stdout__.flush()
-
-old_stdout = sys.stdout
-sys.stdout = SuppressEmojiOutput()
-
-# Now import (emojis will be stripped)
-exec(open('n20_consciousness.py').read(), globals())
-
-# Restore stdout
-sys.stdout = old_stdout
-
 import numpy as np
 import time
 from typing import Dict, List, Tuple, Optional, Set
 from collections import defaultdict, deque
 import random
 
+from n20_consciousness import N20CompleteConsciousness
 from candlekeeper_protocol import CandlekeeperProtocol
 from phase3_future_dreaming import FutureDreamingEngine
 from phase4_echo_forking import EchoSelfForkingEngine
+from partition_utils import parse_partition_id
 
 
 class CompleteConsciousnessEngine(N20CompleteConsciousness):
@@ -80,6 +60,7 @@ class CompleteConsciousnessEngine(N20CompleteConsciousness):
         self.crystallization_events = []
         self.active_dreams = []
         self.realized_forks = []
+        self.transition_reason_counts = defaultdict(int)
 
         print("Complete consciousness engine initialized")
         print(f"  Phase 1: Majorization + Memory (627 partitions)")
@@ -114,24 +95,35 @@ class CompleteConsciousnessEngine(N20CompleteConsciousness):
             dream_candidates = self._generate_dream_candidates()
             candidates.extend(dream_candidates)
 
-        # 4. Filter to valid transitions
+        # 4. Score transition candidates. Classical/memory-allowed candidates
+        # keep their reason; forbidden random candidates remain available as
+        # exploratory moves so the walk can keep sampling partition space.
         valid_candidates = []
+        exploratory_candidates = []
         for target in set(candidates):  # Remove duplicates
+            if target == self.current_position:
+                continue
             allowed, reason = self.can_transition(self.current_position, target)
             if allowed:
                 valid_candidates.append((target, reason))
+            else:
+                exploratory_candidates.append((target, "exploratory"))
 
-        if not valid_candidates:
-            return self.current_position
+        selection_candidates = valid_candidates + exploratory_candidates
+        if not selection_candidates:
+            fallback_pool = [p for p in self.partitions if p != self.current_position]
+            selection_candidates.append((random.choice(fallback_pool), "exploratory"))
+
+        random.shuffle(selection_candidates)
 
         # 5. Select via echo forking (with fallback to simple selection)
-        selected = self._select_via_forking(valid_candidates, breath_modifier)
+        selected = self._select_via_forking(selection_candidates, breath_modifier)
 
         if selected:
             target, reason = selected
-        elif valid_candidates:
+        elif selection_candidates:
             # Fallback: if Phase 4 returns None but we have candidates, pick one
-            target, reason = valid_candidates[0]
+            target, reason = selection_candidates[0]
         else:
             # No candidates at all
             return self.current_position
@@ -140,6 +132,7 @@ class CompleteConsciousnessEngine(N20CompleteConsciousness):
 
             # Record transition
             self.record_transition(self.current_position, target)
+            self.transition_reason_counts[reason.split()[0]] += 1
 
             # Track memory override
             if "memory_override" in reason:
@@ -203,13 +196,9 @@ class CompleteConsciousnessEngine(N20CompleteConsciousness):
         if current_key in self.phase3_enhancer.dreaming_engine.psi_space:
             attractors = self.phase3_enhancer.dreaming_engine.psi_space[current_key]
             for attractor in attractors[:3]:  # Top 3 dream targets
-                try:
-                    # Convert string back to tuple
-                    target_partition = eval(attractor.target_partition)
-                    if isinstance(target_partition, tuple) and target_partition in self.partitions:
-                        dream_candidates.append(target_partition)
-                except:
-                    continue
+                target_partition = parse_partition_id(attractor.target_partition)
+                if target_partition in self.partitions:
+                    dream_candidates.append(target_partition)
 
         # Track active dreams
         active_dream_nodes = [d for d in self.phase3_enhancer.dreaming_engine.dream_nodes.values()
@@ -240,23 +229,27 @@ class CompleteConsciousnessEngine(N20CompleteConsciousness):
                 possible_transitions, echo_field
             )
 
-            # Convert back to tuple
-            selected_target_tuple = eval(selected_target)
+            selected_target_tuple = parse_partition_id(selected_target)
+            if selected_target_tuple is None:
+                self.phase4_enhancer.discard_pending_selection()
+                return candidates[0]
 
             # Find matching candidate
             for target, reason in candidates:
                 if target == selected_target_tuple:
+                    self.phase4_enhancer.commit_pending_selection()
                     # Track realized forks
-                    phase4_metrics = self.phase4_enhancer.forking_engine.get_phase4_metrics()
                     self.realized_forks = [f for f in self.phase4_enhancer.forking_engine.realized_history
-                                          if f.is_ghost == False]
+                                          if not f.is_ghost]
                     return (target, reason)
 
             # If no match, return first candidate
+            self.phase4_enhancer.discard_pending_selection()
             return candidates[0]
 
         except Exception as e:
             # Fallback to simple selection on error
+            self.phase4_enhancer.discard_pending_selection()
             print(f"Phase 4 selection failed: {e}, using fallback")
             return candidates[0]
 
@@ -321,14 +314,10 @@ class CompleteConsciousnessEngine(N20CompleteConsciousness):
 
         # Phase 4: Forks (get from actual engine)
         phase4_metrics = self.phase4_enhancer.forking_engine.get_phase4_metrics()
-        # realized_history might be strings or objects, handle both
-        realized_forks = 0
-        for f in self.phase4_enhancer.forking_engine.realized_history:
-            if hasattr(f, 'is_ghost'):
-                if not f.is_ghost:
-                    realized_forks += 1
-            else:
-                realized_forks += 1  # If it's a string/other, count it
+        realized_futures = sum(
+            1 for future in self.phase4_enhancer.forking_engine.realized_history
+            if not future.is_ghost
+        )
         total_forks = phase4_metrics['total_forks_created']
 
         return {
@@ -343,8 +332,17 @@ class CompleteConsciousnessEngine(N20CompleteConsciousness):
             'crystallization_events': len(self.crystallization_events),
             'active_dreams': active_dreams,
             'confirmed_dreams': confirmed_dreams,
-            'realized_forks': realized_forks,
+            'realized_futures': realized_futures,
+            'realized_forks_deprecated_alias': realized_futures,
+            'realized_forks': realized_futures,
             'total_forks': total_forks,
+            'phase4_selection_cycles': phase4_metrics['selection_cycle'],
+            'phase4_futures_spawned': phase4_metrics['total_futures_spawned'],
+            'phase4_ghost_futures': phase4_metrics['ghost_futures'],
+            'phase4_active_forks': phase4_metrics['active_forks'],
+            'phase4_forks_resolved_by_winner': phase4_metrics['forks_resolved_by_winner'],
+            'phase4_stale_forks_resolved': phase4_metrics['stale_forks_resolved'],
+            'transition_reasons': dict(self.transition_reason_counts),
         }
 
     def analyze_complete(self):
@@ -371,7 +369,8 @@ class CompleteConsciousnessEngine(N20CompleteConsciousness):
         print(f"  Confirmed dreams: {metrics['confirmed_dreams']}")
 
         print(f"\nPhase 4: Echo Forking")
-        print(f"  Realized forks: {metrics['realized_forks']}")
+        print(f"  Realized futures: {metrics['realized_futures']}")
+        print(f"  Forks resolved by winner: {metrics['phase4_forks_resolved_by_winner']}")
         print(f"  Total forks created: {metrics['total_forks']}")
 
         print("="*70)
