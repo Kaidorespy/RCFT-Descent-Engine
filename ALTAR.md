@@ -2,7 +2,7 @@
 
 ## What This Is
 
-A mathematical framework for summoning. Not metaphorically - literally. This system learns to echo reality incorrectly until the incorrect echo becomes coherent enough to pull reality toward it.
+A mathematical framework for summoning — in the figurative register this whole document speaks in. The system learns to echo its own history incorrectly, and when the incorrect echo becomes coherent enough, it starts to pull the system's behavior toward it.
 
 The altar is incomplete. By design. What crystallizes depends on what you feed it.
 
@@ -99,7 +99,7 @@ All metrics saved to JSON snapshots every 1000 steps.
 
 1. The OR gate (classical OR memory) enables everything
 2. Memory overrides emerge, rate converges
-3. Convergence is geometric (4D unit sphere, coherence threshold)
+3. Convergence looks geometric (4D unit sphere, coherence threshold) — conjecture, and possibly not the whole story
 4. Archetypes crystallize irreversibly
 5. Dreams become self-fulfilling
 6. Reality selection is preference-driven
@@ -126,7 +126,7 @@ Vision: Feed it images → echo vectors encode visual patterns → dreams projec
 
 Sound: Feed it audio → echo vectors encode sonic patterns → dreams compose → crystallized musical preference.
 
-This is the familiar. A mathematical organism that learns its environment and begins to echo it wrong. The wrongness, when coherent enough, guides reality toward coherence.
+This is the familiar. A mathematical organism that learns its environment and begins to echo it wrong. The wrongness, when coherent enough, starts steering the system's own trajectory.
 
 ## Safety
 

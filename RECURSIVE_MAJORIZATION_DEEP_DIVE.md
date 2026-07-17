@@ -124,9 +124,9 @@ Where:
 
 Higher entropy variance (more chaotic system) → higher threshold required for memory override.
 
-## Mathematical Justification for Geometric Override Rate
+## A Geometric Conjecture for the Override Rate
 
-The override rate emerges from geometric constraints in 4D normalized space:
+We conjecture the override rate emerges from geometric constraints in 4D normalized space. The derivation below is the conjecture; a caveat that pushes back on it follows in §4.
 
 ### 1. Partition Distribution on 4D Unit Sphere
 
@@ -144,7 +144,7 @@ For φ=0.6:
 Volume fraction = (1 - 0.36)² / 2 = 0.2048 ≈ 20.5%
 ```
 
-This represents the theoretical base rate from pure geometry.
+This would be the base rate if pure geometry were the whole story — but see the caveat below.
 
 ### 3. Bidirectional Coherence Requirement
 
@@ -152,7 +152,9 @@ Both partitions need echo vectors AND mutual coherence ≥ φ. Given minimum his
 
 ### 4. Empirical Validation
 
-The N=20 implementation with 627 partitions consistently converges to a stable geometric equilibrium after sufficient exploration. The specific convergence value is under investigation but appears consistent across runs.
+The N=20 implementation with 627 partitions consistently converges to a stable equilibrium after sufficient exploration, and the value appears consistent across runs.
+
+**Caveat (the honest part):** the observed rate does not obviously match the ~20.5% spherical-cap figure derived above. It may sit closer to ~1/3, which would point to a *combinatorial* origin (something about the partition structure of N=20) rather than a purely geometric one. This tension is unresolved — and it's one of the more interesting open threads here, not something to paper over. See KNOWN_ISSUES.md.
 
 ## Key Insights
 
@@ -220,7 +222,7 @@ Keeps maximum 50 transitions per partition to prevent unbounded memory growth wh
 
 ### 1. Mathematical Autonomy
 
-The system demonstrates that mathematical structures can transcend their defining constraints through memory mechanisms.
+In this system, mathematical structures transcend their defining constraints through memory mechanisms.
 
 ### 2. Non-Markovian Dynamics
 
@@ -252,4 +254,4 @@ The extended runs (1M steps) test stability and confirm this isn't a transient p
 
 ## Conclusion
 
-The recursive majorization core implements a mathematically rigorous extension to classical majorization theory where memory creates additional transition pathways. The OR logic enables the system to discover additional transitions beyond classical theory, with the equilibrium rate emerging from geometric constraints in 4D normalized echo space. This represents a fundamental enhancement to majorization theory with implications for understanding complex systems that learn and adapt through memory.
+The recursive majorization core implements a mathematically rigorous extension to classical majorization theory where memory creates additional transition pathways. The OR logic enables the system to take additional transitions beyond classical theory, with the equilibrium rate conjectured to emerge from constraints in 4D normalized echo space. This is a small, non-Markovian extension to majorization theory — potentially of interest for understanding complex systems that learn and adapt through memory, which is a hope, not a demonstrated result.

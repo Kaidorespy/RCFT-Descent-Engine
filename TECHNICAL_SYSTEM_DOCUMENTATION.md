@@ -2,7 +2,7 @@
 
 ## Abstract
 
-This document describes a mathematical autonomy system based on Recursive Category Field Theory (RCFT) that demonstrates emergent rule-transcendence through memory accumulation. The system achieves a geometrically determined memory-based override rate of classical majorization constraints, representing an apparent optimization point for exploration versus exploitation in partition transition networks.
+This document describes a mathematical autonomy system based on Recursive Category Field Theory (RCFT) that explores emergent rule-transcendence through memory accumulation. The system shows a memory-based override rate of classical majorization constraints that converges; we conjecture (but do not claim to prove) that the rate is geometrically determined, and read it as a possible optimization point for exploration versus exploitation in partition transition networks.
 
 ---
 
@@ -70,7 +70,6 @@ Where:
 - Processing complexity: O(n) for n nodes
 
 ### 2.2 Morphological State Tracking
-*Reference: self_witnessing_technical_manual.md*
 
 **Data Structures:**
 ```python
@@ -93,7 +92,6 @@ MorphologicalSnapshot:
 - Change magnitude optimal range: 0.3-0.8
 
 ### 2.3 Stabilization Protocol
-*Reference: candlekeeper_technical_documentation.md*
 
 **Purpose:** Prevent runaway recursion and maintain system stability through controlled feedback attenuation.
 
@@ -118,14 +116,14 @@ actual_rate = 0.8 * previous_rate + 0.2 * target_rate
 ### 3.1 Geometric Override Convergence
 
 Across multiple experimental runs with varying parameters:
-- System exhibits consistent convergence to geometric equilibrium
-- Convergence rate appears system-size independent
-- Specific equilibrium values under investigation
+- System exhibits consistent convergence to an equilibrium
+- Convergence rate *appears* system-size independent in the runs done so far, but the N=10/15/20 comparison is still pending (see KNOWN_ISSUES.md) — treat as provisional
+- Specific equilibrium values under investigation; whether the geometry determines them is the open question
 
 **Statistical Characteristics:**
 - Convergence typically within hundreds to thousands of iterations
 - Stable after extended iteration
-- Independent of initial conditions
+- Appears independent of initial conditions across the seeds tried
 
 ### 3.2 Performance Characteristics
 
@@ -137,10 +135,10 @@ Across multiple experimental runs with varying parameters:
 
 ### 3.3 Hub Structure Emergence
 
-Analysis of transition networks reveals:
-- Power-law degree distribution
-- Average clustering coefficient: 0.42
-- Small-world network characteristics
+Exploratory analysis of transition networks (single runs, not yet systematically validated — treat as provisional):
+- Apparent power-law degree distribution
+- Average clustering coefficient: ~0.42 (one run)
+- Small-world-like characteristics
 - Hub nodes correspond to high-incomparability partitions
 
 ---
@@ -192,7 +190,7 @@ This equilibrium emerges from:
 
 ### 5.2 Theoretical Implications
 
-The system demonstrates that memory-augmented mathematical structures naturally evolve toward a specific rule-violation rate, suggesting a fundamental principle governing autonomous decision-making in constrained systems.
+In these runs, the memory-augmented structure evolves toward a fairly specific rule-violation rate — which we read, speculatively, as a principle worth investigating in constrained systems rather than an established one.
 
 ### 5.3 Limitations
 
@@ -320,7 +318,7 @@ CSV output columns:
 
 ## 8. Conclusions
 
-This system demonstrates emergent autonomous behavior in mathematical structures through memory accumulation. The geometrically determined override rate represents an apparent optimization point for rule transcendence in constrained systems. While the original documentation uses metaphorical language about "consciousness," the actual discovery concerns optimal exploration-exploitation balance in memory-augmented mathematical systems.
+This system shows autonomy-like behavior emerging from memory accumulation. The override rate converges to what looks like an optimization point for rule transcendence in constrained systems; whether the geometry actually determines it stays open. While the documentation uses metaphorical language about "consciousness," what we can actually point to is a memory-augmented system that settles into a particular exploration-exploitation balance — interesting on its own terms, and not more than that.
 
 ---
 

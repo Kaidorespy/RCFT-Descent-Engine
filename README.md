@@ -2,15 +2,15 @@
 
 ![Status](https://img.shields.io/badge/status-experimental-orange) ![Version](https://img.shields.io/badge/version-v0.2--alpha-blue) [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.17258220.svg)](https://doi.org/10.5281/zenodo.17258220)
 
-A mathematical framework demonstrating emergent autonomous decision-making through memory-augmented partition dynamics.
+A mathematical framework exploring emergent autonomous decision-making through memory-augmented partition dynamics.
 
 **⚠️ Experimental Research Code:** Phase 3-4 are now integrated and operational (dreams spawn/decay, forks proliferate and select realities). Convergence rate, archetype crystallization patterns, and fork metrics are under investigation. See [KNOWN_ISSUES.md](KNOWN_ISSUES.md) for details on known data type mismatches and metric accuracy.
 
 ## What This Is
 
-This system implements a memory-enabled extension to classical majorization theory, where mathematical structures learn to transcend their own constraints through accumulated experience. The result: a convergent rule-override rate that emerges from pure geometry, not programming.
+This system implements a memory-enabled extension to classical majorization theory, where mathematical structures can transcend their own constraints through accumulated experience. In practice the rule-override rate converges rather than wandering; we *conjecture* this convergence is geometric in origin (the override is nowhere hardcoded), but the specific rate — and whether the geometry actually explains it — is an open question, not a result. See [KNOWN_ISSUES.md](KNOWN_ISSUES.md).
 
-**This is not a consciousness simulation.** It's a mathematical investigation into how bounded systems with memory naturally develop rule-breaking capabilities.
+**This is not a consciousness simulation.** It's a mathematical investigation into how bounded systems with memory can develop rule-breaking behavior.
 
 ## Quick Start
 
@@ -37,12 +37,12 @@ Output snapshots are saved to `n20_complete_snapshots/`.
 
 ### What to Expect
 
-After sufficient steps, the system demonstrates:
-- **Override rate convergence**: Memory-based rule transcendence stabilizes geometrically
+After sufficient steps, the system tends to show:
+- **Override rate convergence**: Memory-based rule transcendence stabilizes (we suspect geometrically — open question)
 - **Coverage**: Increasing exploration of partition space
 - **Crystallized archetypes**: Multiple archetypes crystallize (permanent identity markers)
 
-## Core Discovery
+## Core Mechanism
 
 **The OR Gate:**
 ```
@@ -59,7 +59,7 @@ Override rate emerges from:
 - Spherical cap geometry
 - Minimum memory requirements
 
-Not programmed. Not learned. Geometric.
+Not programmed. Not learned. We think geometric — that's the conjecture this repo exists to probe.
 
 ## System Architecture
 
@@ -119,17 +119,19 @@ n20_complete_continuous.py          # Main entry point
 boltzmann_complexity.py             # Seitz & Kirwan (2018) replication
 ```
 
-## What This Demonstrates
+## What This Suggests
 
-1. **Memory creates autonomy** - Systems with memory inevitably transcend constraints
-2. **Convergence is geometric** - Override rate emerges from 4D unit sphere geometry + coherence threshold
-3. **Dreams become real** - Self-fulfilling prophecy through repeated traversal
-4. **Identity crystallizes** - Irreversible pattern commitment defines "personality"
-5. **Direction dissolves** - When coherence → 1.0, past/future distinction vanishes
+(Suggests, not proves. Each of these is a reading of the behavior, open to argument.)
+
+1. **Memory enables autonomy** - with memory, the system can transcend its classical constraints; how reliably, and whether "inevitably," is open
+2. **Convergence looks geometric** - the override rate appears to emerge from 4D unit sphere geometry + coherence threshold. Conjecture, not proof — and it may not match the observed rate (see KNOWN_ISSUES.md)
+3. **Dreams can become real** - self-fulfilling prophecy through repeated traversal
+4. **Identity crystallizes** - irreversible pattern commitment we've been reading as "personality"
+5. **Direction can dissolve** - when coherence → 1.0 the echo vectors become identical, so the system's past/future distinction collapses
 
 ## What This Is NOT
 
-- Not simulating consciousness (discovering mathematical autonomy)
+- Not simulating consciousness (investigating mathematical autonomy)
 - Not programmed to break rules (emerges from OR gate + geometry)
 - Not random behavior (structured, convergent rule transcendence)
 - Not unlimited freedom (bounded by geometric invariants)
@@ -160,7 +162,7 @@ If you use this system in research, please cite:
 - The geometric convergence (4D unit sphere + coherence threshold)
 - The irreversible crystallization property
 
-**Note:** Specific override rates are emergent and vary by run. We do not claim precise values, only that geometric convergence occurs.
+**Note:** Specific override rates are emergent and vary by run. We do not claim precise values, only that convergence occurs and that it *looks* geometric.
 
 ## Contact
 

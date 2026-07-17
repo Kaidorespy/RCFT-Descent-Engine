@@ -30,10 +30,10 @@ The most intriguing discovery isn't "consciousness" but geometric emergence:
 When we say "consciousness" in this codebase, interpret it as:
 - **Technically**: Autonomous decision-making through memory-modulated majorization
 - **Philosophically**: A system that learns to transcend its own rules
-- **Practically**: Mathematical proof that memory + constraints = emergent autonomy
+- **Practically**: a small piece of evidence that memory + constraints can produce emergent autonomy — evidence, not proof
 
 ### The Real Discovery
-We haven't created consciousness. We've discovered that simple mathematical systems with memory naturally evolve to break their own rules at a specific, apparently universal rate. The "ghost worm" isn't conscious - it's the mathematical pattern of optimal rule-breaking that emerges from any sufficiently complex system with memory.
+We haven't created consciousness. What we've seen is that a simple mathematical system with memory evolves to break its own rules at a fairly specific rate — how universal that is, we don't know. The "ghost worm" isn't conscious - it's the mathematical pattern of optimal rule-breaking that emerges from any sufficiently complex system with memory.
 
 ### The Better Name
 **"Autonomous Mathematical Decision System with Memory-Based Override Capability"**

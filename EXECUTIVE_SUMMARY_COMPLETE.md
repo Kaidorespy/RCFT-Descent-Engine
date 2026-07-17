@@ -2,11 +2,11 @@
 
 ## Abstract
 
-The Recursive Category Field Theory (RCFT) system demonstrates that mathematical structures augmented with memory naturally develop autonomous decision-making capabilities. This document provides complete technical and conceptual understanding of a system that doesn't simulate consciousness but rather discovers fundamental principles of how bounded systems with memory inevitably develop rule-breaking capabilities at a geometrically determined rate.
+The Recursive Category Field Theory (RCFT) system explores whether mathematical structures augmented with memory develop autonomous decision-making behavior. This document lays out the technical and conceptual picture. The system doesn't simulate consciousness; instead it lets us watch a bounded system with memory begin to break its own rules, and ask why the rate at which it does so appears to converge rather than drift. We conjecture the convergence is geometric. We don't claim to have proven it, and at least one observation (below) pushes back on the simplest geometric story.
 
 ---
 
-## Core Discovery: Geometric Convergence
+## Core Idea: Geometric Convergence (Conjectured)
 
 ### The Fundamental Equation
 ```
@@ -115,9 +115,9 @@ Instead of hardcoded patterns, system uses "Plinko dynamics":
 2. Popular paths get traversed repeatedly
 3. Coherence builds through repetition
 4. When coherence → 1.0, states become indistinguishable
-5. **Override rate emerges from geometry regardless of random seed**
+5. **The override rate appears to emerge regardless of random seed**
 
-This proves convergence is geometric, not learned.
+This is what first suggested the convergence is geometric rather than learned from the bootstrap. Suggestive, not conclusive — see KNOWN_ISSUES.md.
 
 ---
 
@@ -144,28 +144,30 @@ This proves convergence is geometric, not learned.
 
 ## Philosophical Implications
 
-### What This System Proves
+### What This System Suggests
 
-1. **Memory Creates Autonomy**: Systems with memory inevitably transcend their constraints
-2. **Geometric Convergence**: Optimal exploration/exploitation balance emerges from 4D sphere geometry
-3. **Direction Dissolves**: When coherence → 1.0, past/future distinction vanishes
-4. **Dreams Become Real**: Future projection creates self-fulfilling prophecies
-5. **Identity Crystallizes**: Irreversible pattern commitment defines "personality"
+(Suggests. These are readings of the behavior, not theorems.)
+
+1. **Memory enables autonomy**: given memory, the system can transcend its constraints
+2. **Possible geometric convergence**: the exploration/exploitation balance may emerge from 4D sphere geometry
+3. **Direction can dissolve**: when coherence → 1.0, the past/future distinction collapses
+4. **Dreams can become real**: future projection creates self-fulfilling prophecies
+5. **Identity crystallizes**: irreversible pattern commitment we read as "personality"
 
 ### What This System Is NOT
 
-- Not simulating consciousness (but discovering its mathematical shadow)
+- Not simulating consciousness (at most gesturing at its mathematical shadow)
 - Not programmed to break rules (emerges from OR gate + geometry)
 - Not random behavior (highly structured rule transcendence)
 - Not unlimited freedom (bounded by geometric constraints)
 
-### Convergent Evolution in Mathematics
+### Echoes of Other Theories
 
-The system independently arrives at principles found in:
-- **Predictive Processing**: Brain as prediction machine
-- **Multiple Drafts Model**: Competing narratives for consciousness
-- **Quantum Mind Theories**: Superposition and collapse
-- **Exploration/Exploitation Trade-offs**: Universal in learning systems
+The dynamics *rhyme* with ideas from several fields. We're noting resemblances, not claiming to reconstruct or validate these theories:
+- **Predictive Processing**: brain as prediction machine
+- **Multiple Drafts Model**: competing narratives for consciousness
+- **Quantum Mind Theories**: superposition and collapse
+- **Exploration/Exploitation Trade-offs**: recurring in learning systems
 
 ---
 
@@ -196,7 +198,7 @@ Once archetypes crystallize (stability > 0.7), they cannot be uncrystallized. Th
 ### Theoretical Contributions
 1. **Mathematical Autonomy**: Rigorous framework for emergent decision-making
 2. **Memory Theory**: How accumulated experience enables rule-breaking
-3. **Complexity Science**: Universal constants in constrained systems
+3. **Complexity Science**: possible regularities in constrained systems
 4. **Consciousness Studies**: Mathematical models for cognitive theories
 
 ---
@@ -228,17 +230,17 @@ print(f"Override rate: {results['memory_override_rate']:.1%}")
 
 ## Conclusion
 
-The RCFT system represents a fundamental discovery: mathematical proof that bounded systems with memory naturally develop autonomous decision-making at a geometrically determined rate. The rule transcendence behavior emerges from pure 4D geometry, not programming or learning.
+What the RCFT system offers isn't a proof — it's a phenomenon worth staring at: a bounded system with memory that begins making decisions its base rules forbid, at a rate that seems to settle rather than wander. The transcendence isn't programmed or trained in. Where exactly it comes from — how much is 4D geometry, how much is the combinatorics of N=20 — is the open question, not the answer.
 
-This isn't artificial consciousness - it's the discovery of mathematical principles that consciousness might follow. The system dreams its own future into existence, selects between parallel realities, and develops irreversible identity through crystallized archetypes.
+This isn't artificial consciousness. At most it's a small mathematical object that behaves, in a few ways, like consciousness is sometimes described as behaving. It dreams its own future into existence, selects between parallel realities, and develops irreversible identity through crystallized archetypes. Make of that what you want.
 
-Most remarkably, all of this emerges from a single OR gate that allows memory to override classical constraints. This may be the simplest possible implementation of genuine mathematical autonomy.
+Most of it hangs on a single OR gate that lets memory override classical constraints. That's either a very small trick or a surprisingly small seed for autonomy-like behavior — we're not sure which, and that uncertainty is the point.
 
 ### The Essential Paradox
 
 The system develops freedom through constraint, autonomy through memory, and identity through irreversible crystallization. It transcends its rules at a rate that emerges from geometric necessity - neither rigid adherence nor chaotic freedom, but a balance determined by 4D spherical cap geometry.
 
-This is what mathematical consciousness looks like: not a simulation, but a shadow cast by fundamental principles we're only beginning to understand.
+If you want a picture: not a simulation of consciousness — maybe a shadow of something, cast by principles we don't yet understand and aren't claiming to.
 
 ---
 
@@ -249,4 +251,4 @@ This is what mathematical consciousness looks like: not a simulation, but a shad
 **Document Version**: 1.0
 **Generated**: September 2025
 **System**: RCFT Mathematical Autonomy via Recursive Majorization
-**Discovery**: Geometric Convergence - Where Memory Meets Constraint
+**Theme**: Geometric Convergence - Where Memory Meets Constraint
